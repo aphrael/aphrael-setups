@@ -1,0 +1,18 @@
+
+default: true
+
+groups:
+  - developer
+
+users:
+  - name: yuanying
+    system: true
+    shell: '/bin/zsh'
+    gid: developer
+  - name: mapserver2007
+    gid: developer
+
+rbebv:
+  group_users:
+    - yuanying
+    - mapserver2007

@@ -1,0 +1,3 @@
+[submodule "chef-repo"]
+	path = chef-repo
+	url = https://github.com/yuanying/my-vm-cookbooks.git
