@@ -1,0 +1,13 @@
+{
+  "name": "bootstrap",
+  "default_attributes": {},
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Bootstrap for Yuanying's VM",
+  "chef_type": "role",
+  "run_list" : [ 
+             "recipe[apt]",
+             "recipe[users_and_groups]",
+             "recipe[sudo]"
+			]
+}
