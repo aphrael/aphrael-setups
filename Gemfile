@@ -2,3 +2,5 @@
 source "https://rubygems.org"
 
 gem 'rake-remote_chef'
+gem 'berkshelf'
+
