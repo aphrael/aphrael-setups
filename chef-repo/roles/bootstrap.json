@@ -1,13 +1,26 @@
 {
   "name": "bootstrap",
   "default_attributes": {},
-  "override_attributes": {},
+  "override_attributes": {
+    "rbenv" : {
+      "global" : "1.9.3-p429",
+      "rubies" : [ "1.9.3-p429" ],
+      "gems" : {
+        "1.9.3-p429" : [
+          { "name" : "bundler" }
+        ]
+      }
+    }
+  },
   "json_class": "Chef::Role",
   "description": "Bootstrap for Yuanying's VM",
   "chef_type": "role",
   "run_list" : [ 
              "recipe[apt]",
+             "recipe[zsh]",
              "recipe[users_and_groups]",
-             "recipe[sudo]"
+             "recipe[sudo]",
+             "recipe[ruby_build]",
+             "recipe[rbenv::system]"
 			]
 }

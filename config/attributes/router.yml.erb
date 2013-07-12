@@ -1,2 +1,27 @@
 
 router: true
+
+nise_bosh:
+  deploy:
+    jobs:
+      - router
+      - nats
+    manifest:
+      jobs:
+        - name: router
+          template:
+          - gorouter
+        - name: nats
+          template:
+          - nats
+      
+      properties:
+        networks:
+          apps: default
+          management: default
+        nats:
+          user: nats
+          password: nats
+          address: 127.0.0.1
+          port: 4222
+          authorization_timeout: 5

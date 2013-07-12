@@ -17,14 +17,13 @@ users:
     gid: developer
     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAudOMyRnQs/YD6YLtZ2r9jYzgjRwYRYVhsJc2lRRJZuD7D4pdvbHnmpq8jWOYGE+WDY4SNMoRQcWpJaNsAJEUPpx2DEmsyfDLOP3tn5F4imM+5Ufn/KLGrMeoYCuoS6P4XTiGaoxEtVEGYlA5AB76ALKvdaBxlethoJ3hiGA+zAHfEYWkE2NNtSPH7zp9r8KMuGgPj03Dd8XJ6JbkR32KbdLfPBLX1wBR2xRuIEa3el7UySXtZFaFljeQnBDymg61cM00Hi84npYR/UCb871arDR+EbEbbzY8BFwvduUsQtX8wJ0bmqgu6vkqcrbq3aJoWC0Dx+buKnAXLWzEDFBQ1Q== stay@stay-dev.local
 
-rbenv:
-  group_users:
-    - yuanying
-    - mapserver2007
-
 authorization:
   sudo:
     groups:
       - aphrael
       - admin
     passwordless: true
+
+nise_bosh:
+  ruby:
+    prefix_path: "/usr/local/rbenv/versions/1.9.3-p429"
