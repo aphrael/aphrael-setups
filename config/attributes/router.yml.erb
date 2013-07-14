@@ -2,26 +2,23 @@
 router: true
 
 nise_bosh:
+  ruby:
+    prefix_path: '/usr/local/rbenv/versions/1.9.3-p429'
   deploy:
-    jobs:
-      - router
-      - nats
+    jobs: [ 'router' ]
     manifest:
       jobs:
-        - name: router
-          template:
-          - gorouter
-        - name: nats
-          template:
-          - nats
-      
+      - name: router
+        template:
+        - gorouter
+
       properties:
         networks:
           apps: default
           management: default
+  
         nats:
           user: nats
           password: nats
           address: 127.0.0.1
           port: 4222
-          authorization_timeout: 5
