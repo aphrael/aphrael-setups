@@ -1,13 +1,11 @@
 .DS_Store
 .vagrant
-Berksfile.lock
 *~
 *#
 .#*
 \#*#
 .*.sw[a-z]
 *.un~
-/chef-repo/cookbooks
 
 # Bundler
 Gemfile.lock

@@ -1,0 +1,12 @@
+umask 002
+
+# export LANG=ja_JP.UTF-8
+
+<% if node[:rbenv] %>
+export RBENV_ROOT=<%= node[:rbenv][:install_prefix] ? "#{ node[:rbenv][:install_prefix]}/rbenv" : "#{ node[:rbenv][:root_path]}" %>
+export PATH=$RBENV_ROOT/bin:$PATH
+source $RBENV_ROOT/completions/rbenv.zsh
+eval "$(rbenv init -)"
+<% end %>
+
+[ -f ~/.zshenv.mine ] && source ~/.zshenv.mine

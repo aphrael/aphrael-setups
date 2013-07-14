@@ -1,0 +1,78 @@
+{
+  "sources": {
+    "zsh": {
+      "locked_version": "1.0.0"
+    },
+    "sudo": {
+      "locked_version": "2.1.2"
+    },
+    "ruby_build": {
+      "locked_version": "0.8.0"
+    },
+    "rbenv": {
+      "locked_version": "0.7.3",
+      "git": "https://github.com/fnichol/chef-rbenv",
+      "ref": "9afb4e5da2e6212504a12de3bbbd410cd96100f6"
+    },
+    "docker": {
+      "locked_version": "0.5.0"
+    },
+    "virtualbox": {
+      "locked_version": "1.0.0"
+    },
+    "users_and_groups": {
+      "locked_version": "0.0.1",
+      "git": "https://github.com/yuanying/chef-users_and_groups.git",
+      "ref": "1906b1aeab028e4709c35ff1afc7dad62d61ed9b"
+    },
+    "nats": {
+      "locked_version": "0.0.1",
+      "git": "https://github.com/yuanying/chef-nats.git",
+      "ref": "8f7e0d8d20118a6e72ccc29dfd22c1806c2ddca7"
+    },
+    "nise_bosh": {
+      "locked_version": "0.0.1",
+      "git": "https://github.com/yuanying/chef-nise_bosh.git",
+      "ref": "a587d1c225b39eed01f03baefcebe50b997ff8ec"
+    },
+    "java": {
+      "locked_version": "1.12.0"
+    },
+    "windows": {
+      "locked_version": "1.10.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "apt": {
+      "locked_version": "2.0.0"
+    },
+    "git": {
+      "locked_version": "2.5.2"
+    },
+    "dmg": {
+      "locked_version": "1.1.0"
+    },
+    "build-essential": {
+      "locked_version": "1.4.0"
+    },
+    "yum": {
+      "locked_version": "2.3.0"
+    },
+    "runit": {
+      "locked_version": "1.1.6"
+    },
+    "golang": {
+      "locked_version": "1.1.0"
+    },
+    "lxc": {
+      "locked_version": "1.0.0"
+    },
+    "modules": {
+      "locked_version": "0.1.2"
+    },
+    "logrotate": {
+      "locked_version": "1.2.2"
+    }
+  }
+}

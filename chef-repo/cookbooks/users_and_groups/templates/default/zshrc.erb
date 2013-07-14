@@ -1,0 +1,71 @@
+fpath=(~/.zsh/functions/Completion ${fpath})
+autoload -U compinit
+compinit -u
+
+autoload predict-on
+predict-on
+# for scp
+#zstyle ':completion:*:complete:scp:argument-rest:files' command -noglob
+
+setopt PROMPT_SUBST
+setopt AUTO_CD
+setopt auto_pushd
+setopt correct
+setopt nolistbeep
+
+####
+## PROMPT
+local PROMPT_COLOR=$'%{\e[38;0;90m%}'
+if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+  PROMPT_COLOR=$'%{\e[38;0;91m%}'
+else
+  export EDITOR='mate -w'
+fi
+
+#local DEFAULT_COLOR=$'%{\e[1;m%}'
+local DEFAULT_COLOR=$'%{\e[m%}'
+PROMPT=$PROMPT_COLOR'[%n@%m] %~'$'\n$ '$DEFAULT_COLOR
+PROMPT2=$PROMPT_COLOR"> "$DEFAULT_COLOR
+#RPROMPT='[%~]'
+
+####
+## HISTORY
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+
+####
+## Alias
+alias ls='ls -v'
+alias ll='ls -lF'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+alias delete-ds-store='find . -name ".DS_Store" -print -exec rm -r {} ";"'
+
+function cdf() {
+  local -a tmpparent; tmpparent=""
+  local -a filename; filename="${1}"
+  local -a file
+  local -a num; num=0
+  while [ $num -le 10 ]; do
+    tmpparent="${tmpparent}../"
+    file="${tmpparent}${filename}"
+    if [ -f "${file}" ] || [ -f "${file}" ]; then
+      cd ${tmpparent}
+      break
+    fi
+    num=$(($num + 1))
+  done
+}
+
+function cdrake() {
+  cdf "Rakefile"
+}
+
+####
+## local setting for zsh.
+[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
