@@ -24,5 +24,6 @@ Aphrael 用サーバのセットアップスクリプト。
     $ vagrant ssh
     vagrant@precise64:~$ cat id_dsa.pub >> ./ssh/authorized_keys
     vagrant@precise64:~$ sudo apt-get install curl
+    vagrant@precise64:~$ exit
     $ bundle exec rake chef:bootstrap to=test
     $ bundle exec rake chef:solo to=test
