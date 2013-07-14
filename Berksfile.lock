@@ -33,7 +33,7 @@
     "nise_bosh": {
       "locked_version": "0.0.1",
       "git": "https://github.com/yuanying/chef-nise_bosh.git",
-      "ref": "a587d1c225b39eed01f03baefcebe50b997ff8ec"
+      "ref": "ed59b9250f8f7cf465f775c8f82717ff9adf1569"
     },
     "java": {
       "locked_version": "1.12.0"
@@ -73,6 +73,9 @@
     },
     "logrotate": {
       "locked_version": "1.2.2"
+    },
+    "monit": {
+      "locked_version": "0.7.1"
     }
   }
 }
