@@ -1,2 +1,0 @@
-# Chef-Nise-BOSH
-
