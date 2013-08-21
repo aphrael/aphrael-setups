@@ -4,7 +4,7 @@ cookbook 'zsh'
 cookbook 'sudo'
 cookbook 'ruby_build'
 cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv'
-cookbook 'docker'
+cookbook 'docker', git: 'https://github.com/bflad/chef-docker.git'
 cookbook 'virtualbox'
 cookbook 'users_and_groups', git: "https://github.com/yuanying/chef-users_and_groups.git"
 cookbook 'nginx'

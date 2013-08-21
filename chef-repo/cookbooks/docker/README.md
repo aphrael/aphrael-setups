@@ -37,6 +37,8 @@ arch | Architecture for docker binary (note: Docker only currently supports x86_
 http_proxy | HTTP_PROXY environment variable | String | nil
 install_dir | Installation directory for docker binary | String | auto-detected (see attributes/default.rb)
 install_type | Installation type for docker ("binary", "package" or "source") | String | "package"
+bind_uri | The location to that docker should bind to. Something | String | tcp://0.0.0.0:4243 (docker default)
+options | Additional options to pass to docker. These could be flags like "-api-enable-cors". | String | nil
 
 ### Binary Attributes
 
@@ -160,19 +162,6 @@ Please see documentation in: [TESTING.md](TESTING.md)
 
 Please use standard Github issues/pull requests and if possible, in combination with testing on the Vagrant boxes or Test Kitchen suite.
 
-## License and Authors
+## Contributors
 
-* Author:: Brian Flad (<bflad417@gmail.com>)
-* Copyright:: 2013 Brian Flad
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+* Brian Flad (<bflad417@gmail.com>)
