@@ -33,6 +33,9 @@
       "git": "https://github.com/yuanying/chef-nginx-site.git",
       "ref": "3cfa1e50f26ae8ae6906023a27dceb1d8766bc06"
     },
+    "smbfs": {
+      "locked_version": "0.2.0"
+    },
     "java": {
       "locked_version": "1.12.0"
     },
