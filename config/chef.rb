@@ -2,8 +2,7 @@ set :application,     "AphraelServer"
 
 run_list :router, [
   'role[bootstrap]',
-  'recipe[nats]',
-  'recipe[nise_bosh::deploy]',
+  'recipe[nginx::source]',
   'recipe[docker]',
   'recipe[virtualbox]'
 ]

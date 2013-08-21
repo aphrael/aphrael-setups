@@ -1,24 +1,7 @@
 
-router: true
-
-nise_bosh:
-  ruby:
-    prefix_path: '/usr/local/rbenv/versions/1.9.3-p429'
-  deploy:
-    jobs: [ 'router' ]
-    manifest:
-      jobs:
-      - name: router
-        template:
-        - gorouter
-
-      properties:
-        networks:
-          apps: default
-          management: default
-  
-        nats:
-          user: nats
-          password: nats
-          address: 127.0.0.1
-          port: 4222
+nginx:
+  version: '1.4.2'
+  dir: /opt/nginx
+  init_style: upstart
+  source:
+    checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
