@@ -13,16 +13,27 @@ default[:lxc][:allowed_types] = %w(debian ubuntu fedora)
 default[:lxc][:container_directory] = '/var/lib/lxc'
 default[:lxc][:dnsmasq_lease_file] = '/var/lib/misc/dnsmasq.leases'
 
+default[:lxc][:elecksee][:version_restriction] = '~> 1.0.8'
+default[:lxc][:elecksee][:action] = :install
+
+default[:lxc][:default_config][:lxc_auto] = node[:lxc][:auto_start]
+default[:lxc][:default_config][:use_lxc_bridge] = node[:lxc][:use_bridge]
+default[:lxc][:default_config][:lxc_bridge] = node[:lxc][:bridge]
+default[:lxc][:default_config][:lxc_addr] = node[:lxc][:addr]
+default[:lxc][:default_config][:lxc_netmask] = node[:lxc][:netmask]
+default[:lxc][:default_config][:lxc_dhcp_range] = node[:lxc][:dhcp_range]
+default[:lxc][:default_config][:lxc_dhcp_max] = node[:lxc][:dhcp_max]
+default[:lxc][:default_config][:lxc_shutdown_timeout] = node[:lxc][:shutdown_timeout]
+default[:lxc][:default_config][:mirror] = node[:lxc][:mirror] || 'http://archive.ubuntu.com/ubuntu'
+
 default[:lxc][:knife] = {}
 default[:lxc][:knife][:static_range] = ''
 default[:lxc][:knife][:static_ips] = []
 
-default[:lxc][:user_pass][:debian] = {:username => 'root', :password => 'root'}
-default[:lxc][:user_pass][:ubuntu] = {:username => 'ubuntu', :password => 'ubuntu'}
-default[:lxc][:user_pass][:fedora] = {:username => 'root', :password => 'root'}
+default[:lxc][:user_locks] = %w(ubuntu)
 
 default[:lxc][:packages] = %w(lxc)
 default[:lxc][:mirror] = 'http://archive.ubuntu.com/ubuntu'
 default[:lxc][:containers] = {}
 
-default[:lxc][:awesome_ephemerals] = true
+default[:lxc][:deprecated][:delete_awesome_ephemerals] = true

@@ -1,21 +1,42 @@
-golang Cookbook
-====================
+# <a name="title"></a> golang (Chef cookbook for Go)
 
-Requirements
-============
+## <a name="description"></a> Description
 
-Platform
---------
+Chef cookbook for [Go programming language](http://golang.org/).
 
-Tested on:
+## <a name="requirements"></a> Requirements
 
-* Debian GNU/Linux 6.0
+### <a name="requirements-platform"></a> Platform
+
+* Ubuntu (10.04/11.04/12.04/13.04)
+* Debian (6.0)
 
 **Notes**: This cookbook has been tested on the listed platforms. It
-  may work on other platforms with or without modification.
+may work on other platforms with or without modification. Please
+[report issues](/issues) any additional platforms so they can be added.
 
-Attributes
-----------
+### <a name="requirements-cookbooks"></a> Cookbooks
+
+This cookbook depends on the following external cookbooks:
+
+* git
+
+## <a name="usage"></a> Usage
+
+#### golang::default
+
+Just include `golang` in your node's `run_list`:
+
+```json
+{
+  "name":"my_node",
+  "run_list": [
+    "recipe[golang]"
+  ]
+}
+```
+
+## <a name="attributes"></a> Attributes
 
 #### golang::default
 <table>
@@ -39,32 +60,33 @@ Attributes
   </tr>
 </table>
 
-Usage
------
-#### golang::default
+## <a name="testing"></a> Testing
 
-Just include `golang` in your node's `run_list`:
+This project have [foodcritic](https://github.com/acrmp/foodcritic) for syntax checking and
+[test-kitchen](https://github.com/opscode/test-kitchen) for integration testing. You can run the test suite by
+typing: `rake kitchen:all` (may be slow for the first time).
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[golang]"
-  ]
-}
-```
+In order to run these tests, the following
+[requirements](https://github.com/opscode/kitchen-vagrant#-requirements) must be
+satisfied:
 
-Contributing
-------------
+* [Vagrant](http://vagrantup.com/) (>= 1.1.0)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant Berkshelf Plugin](http://rubygems.org/gems/vagrant-berkshelf)
 
-1. Fork the repository on Github
+## <a name="contributing"></a> Contributing
+
+1. Fork the repository
 2. Create a named feature branch (like `add_component_x`)
 3. Write you change
-6. Submit a Pull Request using Github
+4. Test it by running `rake kitchen:all`
+5. Submit a Pull Request
 
-Contributors
--------------------
+## <a name="contributors"></a> Contributors
 
+* **[@akalyaev](https://github.com/akalyaev)**
 * **[@xaprb](https://github.com/xaprb)**
 * **[@crowdmatt](https://github.com/crowdmatt)**
+* **[@buth](https://github.com/buth)**
+* **[@computerlyrik](https://github.com/computerlyrik)**
 

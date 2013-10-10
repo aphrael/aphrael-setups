@@ -130,7 +130,7 @@ action :create do
 
   #### Use cached chef package from host if available
   if(%w(debian ubuntu).include?(new_resource.template) && system('ls /opt/chef*.deb 2>1 > /dev/null'))
-    if(::File.directory('/opt'))
+    if(::File.directory?('/opt'))
       file_name = Dir.new('/opt').detect do |item| 
         item.start_with?('chef') && item.end_with?('.deb')
       end
@@ -162,6 +162,42 @@ action :create do
         end + new_resource.initialize_commands
       )
     end
+  end
+
+  ruby_block "lxc lock_default_users" do
+    block do
+      contents = ::File.readlines(_lxc.rootfs.join('etc/shadow').to_path)
+      ::File.open(_lxc.rootfs.join('etc/shadow').to_path, 'w') do |file|
+        contents.each do |line|
+          parts = line.split(':')
+          if(node[:lxc][:user_locks].include?(parts.first) && !parts[1].start_with?('!'))
+            parts[1] = "!#{parts[1]}"
+          end
+          file.write parts.join(':')
+        end
+      end
+    end
+    only_if do
+      ::File.readlines(_lxc.rootfs.join('etc/shadow').to_path).detect do |line|
+        parts = line.split(':')
+        node[:lxc][:user_locks].include?(parts.first) && !parts[1].start_with?('!')
+      end
+    end
+  end
+
+  ruby_block "lxc default_password_scrub" do
+    block do
+      contents = ::File.readlines(_lxc.rootfs.join('etc/shadow').to_path)
+      ::File.open(_lxc.rootfs.join('etc/shadow'), 'w') do |file|
+        contents.each do |line|
+          if(line.start_with?('root:'))
+            line.sub!(%r{root:.+?:}, 'root:*')
+          end
+          file.write line
+        end
+      end
+    end
+    not_if "grep 'root:*' #{_lxc.rootfs.join('etc/shadow').to_path}"
   end
 
   ruby_block "lxc start[#{new_resource.name}]" do
@@ -251,7 +287,7 @@ action :create do
   file "lxc chef-data-bag-secret[#{new_resource.name}]" do
     path _lxc.rootfs.join('etc/chef/encrypted_data_bag_secret').to_path
     content(
-      ::File.exists?(new_resource.data_bag_secret_file) ? ::File.open(new_resource.data_bag_secret_file, "rb").read : ''
+      ::File.exists?(new_resource.data_bag_secret_file.to_s) ? ::File.open(new_resource.data_bag_secret_file, "rb").read : ''
     )
     mode 0600
     only_if do

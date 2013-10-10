@@ -17,24 +17,27 @@ action :create do
 end
 
 action :clone do
-  _lxc = @lxc
-  _base_lxc = ::Lxc.new(
-    new_resource.base_container,
-    :base_dir => node[:lxc][:container_directory],
-    :dnsmasq_lease_file => node[:lxc][:dnsmasq_lease_file]
-  )
 
-  unless(_base_lxc.exists?)
+  require 'elecksee/clone'
+  
+  _lxc = @lxc
+
+  unless(::Lxc.new(new_resource.base_container).exists?)
     raise "LXC clone failed! Base container #{new_resource.base_container} does not exist. Cannot create #{new_resource.name}"
   end
-  
-  execute "LXC Clone: #{new_resource.base_container} -> #{new_resource.name}" do
-    command "lxc-clone -o #{new_resource.base_container} -n #{new_resource.name}"
+
+  ruby_block "LXC Clone: #{new_resource.base_container} -> #{new_resource.name}" do
+    block do
+      cloner = ::Lxc::Clone.new(
+        :original => new_resource.base_container,
+        :new_name => new_resource.name
+      )
+      cloner.clone!
+    end
     only_if do
       !_lxc.exists? && new_resource.updated_by_last_action(true)
     end
   end
-
 end
 
 action :delete do
@@ -49,7 +52,7 @@ action :delete do
   end
 
   execute "Destroy container #{new_resource.name}" do
-    command "lxc-destroy #{new_resource.name}"
+    command "lxc-destroy -n #{new_resource.name}"
     only_if do
       _lxc.exists?
     end
