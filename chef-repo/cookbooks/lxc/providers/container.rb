@@ -9,7 +9,7 @@ def load_current_resource
     s_r.first.instance_eval(&s_r.last)
     s_r.first
   end
-  
+
   # TODO: Use some actual logic here, sheesh
   if(new_resource.static_ip && new_resource.static_gateway.nil?)
     raise "Static gateway must be defined when static IP is provided (Container: #{new_resource.name})"
@@ -129,23 +129,32 @@ action :create do
   end
 
   #### Use cached chef package from host if available
-  if(%w(debian ubuntu).include?(new_resource.template) && system('ls /opt/chef*.deb 2>1 > /dev/null'))
-    if(::File.directory?('/opt'))
-      file_name = Dir.new('/opt').detect do |item| 
-        item.start_with?('chef') && item.end_with?('.deb')
+  VERSION_REGEXP = %r{(\d+\.\d+\.\d+(-\d+)?)}
+  if(%w(debian ubuntu).include?(new_resource.template) && system('ls /opt/chef*.deb 2>&1 > /dev/null'))
+    file_path = Dir.glob(::File.join('/opt', 'chef*.deb')).sort do |x,y|
+      version_x = x.scan(VERSION_REGEXP).flatten.first
+      version_y = y.scan(VERSION_REGEXP).flatten.first
+      if(version_x.nil? && version_y.nil?)
+        0
+      elsif(version_x.nil?)
+        -1
+      elsif(version_y.nil?)
+        1
+      else
+        Gem::Version.new(version_x) <=> Gem::Version.new(version_y)
       end
     end
-    
+
     execute "lxc copy_chef_full[#{new_resource.name}]" do
-      command "cp /opt/#{file_name} #{_lxc.rootfs.join('opt')}"
+      command "cp #{file_path} #{_lxc.rootfs.join('opt')}"
       not_if do
-        file_name.nil? || !new_resource.chef_enabled || _lxc.rootfs.join('opt', file_name).exist?
+        file_path.nil? || !new_resource.chef_enabled || _lxc.rootfs.join(file_path).exist?
       end
     end
-        
+
     execute "lxc install_chef_full[#{new_resource.name}]" do
       action :nothing
-      command "chroot #{_lxc.rootfs} dpkg -i #{::File.join('/opt', file_name)}"
+      command "chroot #{_lxc.rootfs} dpkg -i #{file_path}"
       subscribes :run, "execute[lxc copy_chef_full[#{new_resource.name}]]", :immediately
     end
   elsif(new_resource.chef_enabled)
@@ -210,7 +219,7 @@ action :create do
         (node.run_state[:lxc][:meta][new_resource.name][:new_container] && new_resource.initialize_commands)
     end
   end
-    
+
   #### Have initialize commands for the container? Run them now
   ruby_block "lxc initialize_commands[#{new_resource.name}]" do
     block do
@@ -296,14 +305,14 @@ action :create do
         ::File.exists?(new_resource.copy_data_bag_secret_file)
     end
   end
-  
+
   #### Let chef configure the container
   # NOTE: We run chef-client if the validator.pem exists and the
   # client.pem file does not exist.
   ruby_block "lxc run_chef[#{new_resource.name}]" do
     block do
       cmd = 'chef-client -K /etc/chef/validator.pem -c /etc/chef/client.rb -j /etc/chef/first_run.json'
-      Chef::Log.info "Running command on #{new_resource.name}: #{cmd}"      
+      Chef::Log.info "Running command on #{new_resource.name}: #{cmd}"
       _lxc.container_command(cmd, new_resource.chef_retries)
     end
     only_if do
@@ -335,7 +344,7 @@ action :create do
       stopped_end_state && _lxc.running?
     end
   end
-  
+
   #### Clean up after chef if it's enabled
   file @lxc.rootfs.join('etc/chef/first_run.json').to_path do
     action :delete
@@ -344,7 +353,7 @@ action :create do
   file @lxc.rootfs.join('etc/chef/validator.pem').to_path do
     action :delete
   end
-    
+
 end
 
 action :delete do

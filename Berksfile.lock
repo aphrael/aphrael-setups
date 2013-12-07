@@ -4,7 +4,7 @@
       "locked_version": "1.0.0"
     },
     "sudo": {
-      "locked_version": "2.1.2"
+      "locked_version": "2.2.2"
     },
     "ruby_build": {
       "locked_version": "0.8.0"
@@ -15,12 +15,12 @@
       "ref": "9afb4e5da2e6212504a12de3bbbd410cd96100f6"
     },
     "docker": {
-      "locked_version": "0.6.2",
+      "locked_version": "0.20.0",
       "git": "https://github.com/bflad/chef-docker.git",
-      "ref": "4c4ec98d53d31a679e087227466d9e5ada1dcab9"
+      "ref": "5810fac7b0abe265285709c91edf9e9919d106a1"
     },
     "virtualbox": {
-      "locked_version": "1.0.0"
+      "locked_version": "1.0.2"
     },
     "users_and_groups": {
       "locked_version": "0.0.1",
@@ -28,7 +28,7 @@
       "ref": "1906b1aeab028e4709c35ff1afc7dad62d61ed9b"
     },
     "nginx": {
-      "locked_version": "1.7.0"
+      "locked_version": "2.0.4"
     },
     "nginx-site": {
       "locked_version": "0.1.0",
@@ -39,7 +39,7 @@
       "locked_version": "0.2.0"
     },
     "java": {
-      "locked_version": "1.14.0"
+      "locked_version": "1.15.4"
     },
     "windows": {
       "locked_version": "1.11.0"
@@ -48,37 +48,46 @@
       "locked_version": "1.1.4"
     },
     "aws": {
-      "locked_version": "0.101.6"
+      "locked_version": "1.0.0"
     },
     "apt": {
-      "locked_version": "2.2.0"
+      "locked_version": "2.3.0"
     },
     "git": {
       "locked_version": "2.7.0"
     },
     "dmg": {
-      "locked_version": "2.0.4"
+      "locked_version": "2.0.8"
     },
     "build-essential": {
       "locked_version": "1.4.2"
     },
     "yum": {
-      "locked_version": "2.3.4"
+      "locked_version": "2.4.4"
     },
     "runit": {
-      "locked_version": "1.3.0"
+      "locked_version": "1.4.0"
     },
     "golang": {
-      "locked_version": "1.1.2"
+      "locked_version": "1.2.0"
     },
     "lxc": {
-      "locked_version": "1.1.2"
+      "locked_version": "1.1.4"
     },
     "dpkg_autostart": {
       "locked_version": "0.1.8"
     },
     "modules": {
-      "locked_version": "0.1.3"
+      "locked_version": "0.2.0"
+    },
+    "apache2": {
+      "locked_version": "1.8.4"
+    },
+    "bluepill": {
+      "locked_version": "2.3.0"
+    },
+    "rsyslog": {
+      "locked_version": "1.9.0"
     },
     "ohai": {
       "locked_version": "1.1.12"

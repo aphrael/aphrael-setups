@@ -29,7 +29,7 @@ phpvirtualbox_build = node['virtualbox']['webportal']['versions'][vbox_version]
 phpvirtualbox_version = "#{vbox_version}-#{phpvirtualbox_build}"
 
 remote_file "#{Chef::Config['file_cache_path']}/phpvirtualbox-#{phpvirtualbox_version}.zip" do
-  source "http://phpvirtualbox.googlecode.com/files/phpvirtualbox-#{phpvirtualbox_version}.zip"
+  source "http://downloads.sourceforge.net/project/phpvirtualbox/phpvirtualbox-#{phpvirtualbox_version}.zip"
   mode "0644"
 end
 
@@ -40,19 +40,36 @@ end
 bash "extract-phpvirtualbox" do
   code <<-EOH
   cd /tmp
+  rm -rf phpvirtualbox
+  mkdir phpvirtualbox
+  cd phpvirtualbox
   unzip #{Chef::Config['file_cache_path']}/phpvirtualbox-#{phpvirtualbox_version}.zip
-  cd phpvirtualbox-#{phpvirtualbox_version}
-  mv * /var/www
+  mkdir -p #{node['virtualbox']['webportal']['installdir']}
+  mv * #{node['virtualbox']['webportal']['installdir']}
   cd ..
-  rm -rf phpvirtualbox-#{phpvirtualbox_version}
+  rm -rf phpvirtualbox
   EOH
 end
 
-template "/var/www/config.php" do
+bash "enable-apache2-default-site" do
+  if node['virtualbox']['webportal']['enable-apache2-default-site'] then
+    code <<-EOH
+      if [ ! -f /etc/apache2/sites-enabled/default ]; then
+        ln -s /etc/apache2/sites-available/default /etc/apache2/sites-enabled/default
+      else
+        exit 0
+      fi
+    EOH
+  end
+end
+
+template "#{node['virtualbox']['webportal']['installdir']}/config.php" do
   source "config.php.erb"
   mode "0644"
   notifies :restart, "service[apache2]", :immediately
   variables(
-      :password => data_bag_item('passwords','vboxweb-service')['password']
+      :password => data_bag_item('passwords','virtualbox-user')['rawpassword']
   )
 end
+
+

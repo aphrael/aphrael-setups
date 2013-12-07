@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+include_recipe 'lxc::bugfix_precise_repo'
+
 dpkg_autostart 'lxc' do
   allow false
 end
@@ -43,7 +45,7 @@ end
 # if the host uses the apt::cacher-client recipe, re-use it
 # Is the host a cacher?
 if(system("service apt-cacher-ng status 2>&1") && Chef::Config[:solo])
-  node.default[:lxc][:default_config][:mirror] = "http://#{lxc_net_prefix}.1:3142/archive.ubuntu.com/"
+  node.default[:lxc][:default_config][:mirror] = "http://#{lxc_net_prefix}.1:3142/archive.ubuntu.com/ubuntu/"
 elsif(File.exists?('/etc/apt/apt.conf.d/01proxy'))
   if(Chef::Config[:solo])
     proxy = File.readlines('/etc/apt/apt.conf.d/01proxy').detect do |line|
@@ -95,6 +97,18 @@ chef_gem 'elecksee' do
     version node[:lxc][:elecksee][:version_restriction]
   end
   action node[:lxc][:elecksee][:action]
+end
+
+service 'lxc-apparmor' do
+  service_name 'apparmor'
+  action :nothing
+end
+
+file '/etc/apparmor.d/lxc/lxc-with-nesting' do
+  path 'lxc-nesting.apparmor'
+  mode 0644
+  action node[:lxc][:apparmor][:enable_nested_containers] ? :create : :delete
+  notifies :restart, 'service[lxc-apparmor]', :immediately
 end
 
 require 'elecksee/lxc'

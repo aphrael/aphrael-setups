@@ -3,6 +3,28 @@ Java Cookbook CHANGELOG
 This file is used to list changes made in each version of the Java cookbook.
 
 
+v1.15.4
+-------
+[COOK-4210] - remove unneeded run_command to prevent zombie processes
+
+
+v1.15.2
+-------
+[CHEF-4210] remove unneeded run_command to prevent zombie processes
+
+
+v1.15.0
+-------
+### Bug
+- Fixing version number. Accidently released at 0.15.x instead of 1.15.x
+
+
+v0.15.2
+-------
+### FIX
+- [COOK-3908] - Fixing JAVA_HOME on Ubuntu 10.04
+
+
 v1.14.0
 -------
 ### Bug

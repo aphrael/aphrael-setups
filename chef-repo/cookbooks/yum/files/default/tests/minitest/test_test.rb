@@ -1,3 +1,4 @@
+# Encoding: utf-8
 #
 # Cookbook Name:: yum
 #
@@ -18,42 +19,42 @@
 
 require File.expand_path('../support/helpers', __FILE__)
 
-describe "yum::test" do
+describe 'yum::test' do
   # helpers includes the repo_enabled method used to test that repos
   # are in fact enabled.
   include Helpers::YumTest
 
-  describe "elrepo" do
-    it "enables the elrepo repository" do
-      assert(repo_enabled("elrepo"))
+  describe 'elrepo' do
+    it 'enables the elrepo repository' do
+      assert(repo_enabled('elrepo'))
     end
   end
 
-  describe "epel" do
-    it "enables the epel repository" do
-      assert(repo_enabled("epel"))
+  describe 'epel' do
+    it 'enables the epel repository' do
+      assert(repo_enabled('epel'))
     end
   end
 
-  describe "ius" do
-    it "enables the ius repository" do
-      assert(repo_enabled("ius"))
+  describe 'ius' do
+    it 'enables the ius repository' do
+      assert(repo_enabled('ius'))
     end
   end
 
-  describe "remi" do
-    it "enables the remi repository" do
-      assert(repo_enabled("remi"))
+  describe 'remi' do
+    it 'enables the remi repository' do
+      assert(repo_enabled('remi'))
     end
   end
 
-  describe "repoforge" do
-    it "enables the repoforge repository" do
-      assert(repo_enabled("rpmforge"))
+  describe 'repoforge' do
+    it 'enables the repoforge repository' do
+      assert(repo_enabled('rpmforge'))
     end
-	end
+  end
 
-  describe "cook-2121" do
+  describe 'cook-2121' do
 
     it 'doesnt update the zenos-add.repo file if it exists' do
       assert File.zero?('/etc/yum.repos.d/zenoss-add.repo')
@@ -61,6 +62,16 @@ describe "yum::test" do
 
     it 'updates the zenoss-create file' do
       file('/etc/yum.repos.d/zenoss-create.repo').must_match %r[baseurl=http://dev.zenoss.com/yum/stable/]
+    end
+  end
+
+  describe 'cook-3025' do
+    it 'doesnt add proxy statements to repositories if not specified' do
+      file('/etc/yum.repos.d/epel.repo').wont_match(/^proxy=/)
+    end
+
+    it 'does configure a proxy in repositories where it is specified' do
+      file('/etc/yum.repos.d/cook-3025.repo').must_match %r[^proxy=http://proxy.invalid:1234/path$]
     end
   end
 end
