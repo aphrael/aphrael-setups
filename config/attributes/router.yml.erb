@@ -1,8 +1,10 @@
 
 docker:
   install_type: 'binary'
-  bind_uri: tcp://0.0.0.0:4243
-  options: '-api-enable-cors -H unix:///var/run/docker.sock -r'
+  bind_uri: tcp://192.168.1.82:4243
+  init_type: upstart
+  container_init_type: false
+  options: '-api-enable-cors'
 
 nginx:
   version: '1.4.2'
