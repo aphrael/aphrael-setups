@@ -1,3 +1,37 @@
+## 0.24.2
+
+* Bugfix: [GH-43] Better formatting for container LWRP debug logging
+
+## 0.24.1
+
+* Bugfix: Explicitly declare depends and supports in metadata
+* Bugfix: Handle container run action if container exists but isn't running
+
+## 0.24.0
+
+* Bugfix: [GH-42] fix(upstart): Install inotify-tools if using upstart
+* Enhancement: [GH-38] Allow a user to specify a custom template for their container init configuration
+
+## 0.23.1
+
+* Bugfix: [GH-39] Fix NoMethodError bugs in docker::aufs recipe
+
+## 0.23.0
+
+* Bugfix: Default oracle init_type to sysv
+* Enhancement: Experimental Debian 7 package support
+* Enhancement: Use new yum-epel cookbook instead of yum::epel recipe
+* Enhancement: Use `value_for_platform` where applicable in attributes, requires Chef 11
+
+## 0.22.0
+
+* Enhancement: [GH-35] Use kernel release for package name on saucy and newer
+* Enhancement: [GH-37] dont include aufs recipe on ubuntu 13.10 and up; don't require docker::lxc for package installs
+
+## 0.21.0
+
+* Enhancement: [GH-31] More helpful cmd_timeout error messages and catchable exceptions for container (`Chef::Provider::Docker::Container::CommandTimeout`) and image (`Chef::Provider::Docker::Image::CommandTimeout`) LWRPs
+
 ## 0.20.0
 
 * Enhancement: Default to package install_type only on distros with known packages

@@ -1,17 +1,22 @@
 case node['platform']
-when 'oracle'
-  include_recipe 'docker::cgroups'
-  include_recipe 'docker::lxc'
-when 'ubuntu'
+when 'debian', 'ubuntu'
   include_recipe 'apt'
   package 'apt-transport-https'
   package 'bsdtar'
+  include_recipe 'docker::lxc' unless node['docker']['install_type'] == 'package'
+  if node['platform'] == 'debian'
+    sysctl_param 'net.ipv4.ip_forward' do
+      value 1
+    end
+  elsif node['platform'] == 'ubuntu' && Chef::VersionConstraint.new('< 13.10').include?(node['platform_version'])
+    include_recipe 'docker::aufs'
+  end
+when 'oracle'
+  include_recipe 'docker::cgroups'
   include_recipe 'docker::lxc'
-  include_recipe 'docker::aufs'
 end
 
 if node['docker']['install_type'] == 'source'
-  node.set['go']['version'] = '1.1'
   include_recipe 'golang'
   include_recipe 'git'
 end

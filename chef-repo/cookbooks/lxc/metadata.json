@@ -9,7 +9,7 @@
     "ubuntu": ">= 0.0.0"
   },
   "dependencies": {
-    "dpkg_autostart": "~> 0.1.6"
+    "dpkg_autostart": "~> 0.1.10"
   },
   "recommendations": {
   },
@@ -29,5 +29,5 @@
   },
   "recipes": {
   },
-  "version": "1.1.4"
+  "version": "1.1.6"
 }

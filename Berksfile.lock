@@ -6,49 +6,15 @@
     "sudo": {
       "locked_version": "2.2.2"
     },
-    "ruby_build": {
-      "locked_version": "0.8.0"
-    },
-    "rbenv": {
-      "locked_version": "0.7.3",
-      "git": "https://github.com/fnichol/chef-rbenv",
-      "ref": "9afb4e5da2e6212504a12de3bbbd410cd96100f6"
-    },
-    "docker": {
-      "locked_version": "0.20.0",
-      "git": "https://github.com/bflad/chef-docker.git",
-      "ref": "5810fac7b0abe265285709c91edf9e9919d106a1"
-    },
-    "virtualbox": {
-      "locked_version": "1.0.2"
-    },
     "users_and_groups": {
       "locked_version": "0.0.1",
       "git": "https://github.com/yuanying/chef-users_and_groups.git",
       "ref": "1906b1aeab028e4709c35ff1afc7dad62d61ed9b"
     },
-    "nginx": {
-      "locked_version": "2.0.4"
-    },
-    "nginx-site": {
-      "locked_version": "0.1.0",
-      "git": "https://github.com/yuanying/chef-nginx-site.git",
-      "ref": "3cfa1e50f26ae8ae6906023a27dceb1d8766bc06"
-    },
-    "smbfs": {
-      "locked_version": "0.2.0"
-    },
-    "java": {
-      "locked_version": "1.15.4"
-    },
-    "windows": {
-      "locked_version": "1.11.0"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.4"
-    },
-    "aws": {
-      "locked_version": "1.0.0"
+    "dokku": {
+      "locked_version": "0.2.0",
+      "git": "https://github.com/fgrehm/chef-dokku.git",
+      "ref": "bf816635a724dded722adaa496c2a4c7954b6d11"
     },
     "apt": {
       "locked_version": "2.3.0"
@@ -65,23 +31,17 @@
     "yum": {
       "locked_version": "2.4.4"
     },
+    "windows": {
+      "locked_version": "1.11.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
     "runit": {
       "locked_version": "1.4.0"
     },
-    "golang": {
-      "locked_version": "1.2.0"
-    },
-    "lxc": {
-      "locked_version": "1.1.4"
-    },
-    "dpkg_autostart": {
-      "locked_version": "0.1.8"
-    },
-    "modules": {
-      "locked_version": "0.2.0"
-    },
-    "apache2": {
-      "locked_version": "1.8.4"
+    "nginx": {
+      "locked_version": "2.0.4"
     },
     "bluepill": {
       "locked_version": "2.3.0"
@@ -91,6 +51,30 @@
     },
     "ohai": {
       "locked_version": "1.1.12"
+    },
+    "docker": {
+      "locked_version": "0.24.2"
+    },
+    "golang": {
+      "locked_version": "1.2.0"
+    },
+    "lxc": {
+      "locked_version": "1.1.6"
+    },
+    "dpkg_autostart": {
+      "locked_version": "0.1.10"
+    },
+    "modules": {
+      "locked_version": "0.2.0"
+    },
+    "sysctl": {
+      "locked_version": "0.3.5"
+    },
+    "yum-epel": {
+      "locked_version": "0.2.0"
+    },
+    "user": {
+      "locked_version": "0.3.0"
     }
   }
 }

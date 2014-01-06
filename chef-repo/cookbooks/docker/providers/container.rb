@@ -2,17 +2,20 @@ require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 include Helpers::Docker
 
+class CommandTimeout < RuntimeError; end
+
 def load_current_resource
   @current_resource = Chef::Resource::DockerContainer.new(new_resource)
-  dps = shell_out('docker ps -a -notrunc', :timeout => new_resource.cmd_timeout)
+  dps = docker_cmd('ps -a -notrunc')
   dps.stdout.each_line do |dps_line|
     next unless dps_line.include?(new_resource.image)
     next if new_resource.command && !dps_line.include?(new_resource.command)
-    container_ps = dps_line.split(/\s\s+/)
-    container_name = container_ps[6] || container_ps[5]
-    @current_resource.container_name(container_name)
-    @current_resource.id(container_ps[0])
-    @current_resource.running(true) if container_ps[4].include?('Up')
+    Chef::Log.debug('Matched docker container: ' + dps_line.squeeze(' '))
+    ps = dps_line.split(/\s\s+/)
+    name = ps[6] || ps[5]
+    @current_resource.container_name(name)
+    @current_resource.id(ps[0])
+    @current_resource.running(true) if ps[4].include?('Up')
     break
   end
   @current_resource
@@ -38,7 +41,11 @@ end
 
 action :run do
   unless running?
-    run
+    if exists?
+      start
+    else
+      run
+    end
     new_resource.updated_by_last_action(true)
   end
 end
@@ -80,12 +87,27 @@ def container_name
   end
 end
 
+def docker_cmd(cmd, timeout = new_resource.cmd_timeout)
+  Chef::Log.debug('Executing: docker ' + cmd)
+  begin
+    shell_out('docker ' + cmd, :timeout => timeout)
+  rescue Mixlib::ShellOut::CommandTimeout
+    raise CommandTimeout, <<-EOM
+
+Docker command timed out:
+docker #{cmd}
+
+Please adjust node container_cmd_timeout attribute or this docker_container cmd_timeout attribute if necessary.
+EOM
+  end
+end
+
 def exists?
   @current_resource.id
 end
 
 def port
-  # DEPRACATED support for public_port attribute and Fixnum port
+  # DEPRECATED support for public_port attribute and Fixnum port
   if new_resource.public_port && new_resource.port.is_a?(Fixnum)
     "#{new_resource.public_port}:#{new_resource.port}"
   elsif new_resource.port && new_resource.port.is_a?(Fixnum)
@@ -136,7 +158,7 @@ def run
     'volumes-from' => new_resource.volumes_from,
     'w' => new_resource.working_directory
   )
-  dr = shell_out("docker run #{run_args} #{new_resource.image} #{new_resource.command}", :timeout => new_resource.cmd_timeout)
+  dr = docker_cmd("run #{run_args} #{new_resource.image} #{new_resource.command}")
   dr.error!
   new_resource.id(dr.stdout.chomp)
   service_create if service?
@@ -176,7 +198,11 @@ end
 
 def service_create_systemd
   template "/usr/lib/systemd/system/#{service_name}.socket" do
-    source 'docker-container.socket.erb'
+    if new_resource.socket_template.nil?
+      source 'docker-container.socket.erb'
+    else
+      source new_resource.socket_template
+    end
     cookbook new_resource.cookbook
     mode '0644'
     owner 'root'
@@ -189,7 +215,7 @@ def service_create_systemd
   end
 
   template "/usr/lib/systemd/system/#{service_name}.service" do
-    source 'docker-container.service.erb'
+    source service_template
     cookbook new_resource.cookbook
     mode '0644'
     owner 'root'
@@ -205,7 +231,7 @@ end
 
 def service_create_sysv
   template "/etc/init.d/#{service_name}" do
-    source 'docker-container.sysv.erb'
+    source service_template
     cookbook new_resource.cookbook
     mode '0755'
     owner 'root'
@@ -220,8 +246,11 @@ def service_create_sysv
 end
 
 def service_create_upstart
+  # The upstart init script requires inotifywait, which is in inotify-tools
+  package 'inotify-tools'
+
   template "/etc/init/#{service_name}.conf" do
-    source 'docker-container.conf.erb'
+    source service_template
     cookbook new_resource.cookbook
     mode '0600'
     owner 'root'
@@ -288,6 +317,18 @@ def service_stop
   service_action([:stop])
 end
 
+def service_template
+  return new_resource.init_template unless new_resource.init_template.nil?
+  case new_resource.init_type
+  when 'systemd'
+    'docker-container.service.erb'
+  when 'upstart'
+    'docker-container.conf.erb'
+  when 'sysv'
+    'docker-container.sysv.erb'
+  end
+end
+
 def sockets
   return [] if port.empty?
   [*port].map { |p| p.gsub!(/.*:/, '') }
@@ -301,7 +342,7 @@ def start
   if service?
     service_create
   else
-    shell_out("docker start #{start_args} #{current_resource.id}", :timeout => new_resource.cmd_timeout)
+    docker_cmd("start #{start_args} #{current_resource.id}")
   end
 end
 
@@ -312,10 +353,10 @@ def stop
   if service?
     service_stop
   else
-    shell_out("docker stop #{stop_args} #{current_resource.id}", :timeout => (new_resource.cmd_timeout + 15))
+    docker_cmd("stop #{stop_args} #{current_resource.id}", (new_resource.cmd_timeout + 15))
   end
 end
 
 def wait
-  shell_out("docker wait #{current_resource.id}", :timeout => new_resource.cmd_timeout)
+  docker_cmd("wait #{current_resource.id}")
 end

@@ -8,9 +8,14 @@ This cookbook was inspired by @thoward's docker-cookbook: https://github.com/tho
 
 ## Requirements
 
+### Chef
+
+* Chef 11+
+
 ### Platforms
 
 * CentOS 6
+* Debian 7 (experimental)
 * Fedora 19
 * Fedora 20
 * Oracle 6
@@ -18,6 +23,7 @@ This cookbook was inspired by @thoward's docker-cookbook: https://github.com/tho
 * Ubuntu 12.04
 * Ubuntu 12.10
 * Ubuntu 13.04
+* Ubuntu 13.10 (experimental)
 
 ### Cookbooks
 
@@ -104,7 +110,7 @@ Attribute | Description | Type | Default
 ----------|-------------|------|--------
 attach | Attach container's stdout/stderr and forward all signals to the process | TrueClass, FalseClass | nil
 cidfile | File to store container ID | String | nil
-cmd_timeout | Timeout for docker commands | Integer | `node['docker']['container_cmd_timeout']`
+cmd_timeout | Timeout for docker commands (catchable exception: `Chef::Provider::Docker::Container::CommandTimeout`)| Integer | `node['docker']['container_cmd_timeout']`
 command | Command to run in container | String | nil
 container_name | Name for container/service | String | nil
 cookbook | Cookbook to grab any templates | String | docker
@@ -118,6 +124,7 @@ hostname | Container hostname | String | nil
 id | Container ID (internally set by LWRP) | String | nil
 image | Image for container | String | LWRP name
 init_type | Init type for container service handling | FalseClass, String | `node['docker']['container_init_type']`
+init_template | Template to use for init configuration | String | nil
 link | Add link to another container | String | nil
 lxc_conf | Custom LXC options | String, Array | nil
 memory | Set memory limit for container | Fixnum | nil
@@ -127,6 +134,7 @@ public_port (*DEPRECATED*) | Map host port to container | Fixnum | nil
 publish_exposed_ports | Publish all exposed ports to the host interfaces | TrueClass, FalseClass | false
 remove_automatically | Automatically remove the container when it exits (incompatible with detach) | TrueClass, FalseClass | false
 running | Container running status (internally set by LWRP) | TrueClass, FalseClass | nil
+socket_template | Template to use for configuring socket (relevent for init_type systemd only) | String | nil
 stdin | Attach container's stdin | TrueClass, FalseClass | nil
 tty | Allocate a pseudo-tty | TrueClass, FalseClass | nil
 user | User to run container | String | nil
@@ -186,7 +194,7 @@ These attributes are under the `docker_image` LWRP namespace.
 
 Attribute | Description | Type | Default
 ----------|-------------|------|--------
-cmd_timeout | Timeout for docker commands | Integer | `node['docker']['image_cmd_timeout']`
+cmd_timeout | Timeout for docker commands (catchable exception: `Chef::Provider::Docker::Image::CommandTimeout`) | Integer | `node['docker']['image_cmd_timeout']`
 dockerfile | Dockerfile to build image | String | nil
 id | Image ID (internally set by LWRP) | String | nil
 image_name | Image name | String | LWRP name
@@ -253,28 +261,12 @@ Remove image:
 
 ## Testing and Development
 
-### Vagrant
-
-Here's how you can quickly get testing or developing against the cookbook thanks to [Vagrant](http://vagrantup.com/) and [Berkshelf](http://berkshelf.com/).
-
-    vagrant plugin install vagrant-berkshelf
-    vagrant plugin install vagrant-cachier
-    vagrant plugin install vagrant-omnibus
-    git clone git://github.com/bflad/chef-docker.git
-    cd chef-docker
-    vagrant up BOX # BOX being centos5, centos6, debian7, fedora18, fedora19, fedora20, freebsd9, ubuntu1204, ubuntu1210, ubuntu1304, or ubuntu1310
-
-You can then SSH into the running VM using the `vagrant ssh BOX` command.
-
-The VM can easily be stopped and deleted with the `vagrant destroy` command. Please see the official [Vagrant documentation](http://docs.vagrantup.com/v2/cli/index.html) for a more in depth explanation of available commands.
-
-### Test Kitchen
-
-Please see documentation in: [TESTING.md](TESTING.md)
+* Quickly testing with Vagrant: [VAGRANT.md](VAGRANT.md)
+* Full development and testing workflow with Test Kitchen and friends: [TESTING.md](TESTING.md)
 
 ## Contributing
 
-Please use standard Github issues/pull requests and if possible, in combination with testing on the Vagrant boxes or Test Kitchen suite.
+Please see contributing information in: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Maintainers
 

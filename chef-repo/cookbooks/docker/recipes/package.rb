@@ -1,17 +1,12 @@
 case node['platform']
 when 'centos', 'redhat'
-  include_recipe 'yum::epel'
+  include_recipe 'yum-epel'
 
   package 'docker-io' do
     version node['docker']['version']
     action node['docker']['package']['action'].intern
   end
-when 'fedora'
-  package 'docker-io' do
-    version node['docker']['version']
-    action node['docker']['package']['action'].intern
-  end
-when 'ubuntu'
+when 'debian', 'ubuntu'
   apt_repository 'docker' do
     uri node['docker']['package']['repo_url']
     distribution node['docker']['package']['distribution']
@@ -26,6 +21,11 @@ when 'ubuntu'
 
   package p do
     options '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+    action node['docker']['package']['action'].intern
+  end
+when 'fedora'
+  package 'docker-io' do
+    version node['docker']['version']
     action node['docker']['package']['action'].intern
   end
 end
