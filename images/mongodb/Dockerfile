@@ -3,6 +3,7 @@
 # VERSION               0.0.1
 #
 # docker build -t yuanying/mongodb:2.4.5 .
+# docker run -d -v /home/yuanying/mongodb/data:/data -p 27017:27017 yuanying/mongodb:2.4.5
 
 FROM ubuntu
 MAINTAINER O. Yuanying "yuan-docker@fraction.jp"
