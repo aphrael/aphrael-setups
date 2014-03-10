@@ -8,7 +8,7 @@ MAINTAINER O. Yuanying "yuan-docker@fraction.jp"
 ADD my.cnf /etc/mysql/my.cnf
 RUN apt-get update
 
-RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
+# RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
 
 RUN apt-get install -y -o Dpkg::Options::="--force-confold" mysql-common
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y mysql-server
