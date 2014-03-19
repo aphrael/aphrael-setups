@@ -14,7 +14,7 @@
     "dokku": {
       "locked_version": "0.2.0",
       "git": "https://github.com/fgrehm/chef-dokku.git",
-      "ref": "bf816635a724dded722adaa496c2a4c7954b6d11"
+      "ref": "823ac096c5d80c9acc7829c8010f3a70da1576b4"
     },
     "apt": {
       "locked_version": "2.3.0"
@@ -40,8 +40,11 @@
     "runit": {
       "locked_version": "1.4.0"
     },
+    "user": {
+      "locked_version": "0.3.0"
+    },
     "nginx": {
-      "locked_version": "2.0.4"
+      "locked_version": "2.2.2"
     },
     "bluepill": {
       "locked_version": "2.3.0"
@@ -51,6 +54,9 @@
     },
     "ohai": {
       "locked_version": "1.1.12"
+    },
+    "yum-epel": {
+      "locked_version": "0.2.0"
     },
     "docker": {
       "locked_version": "0.24.2"
@@ -69,12 +75,6 @@
     },
     "sysctl": {
       "locked_version": "0.3.5"
-    },
-    "yum-epel": {
-      "locked_version": "0.2.0"
-    },
-    "user": {
-      "locked_version": "0.3.0"
     }
   }
 }

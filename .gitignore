@@ -7,6 +7,8 @@
 .*.sw[a-z]
 *.un~
 
+vagrant.ssh.config
+
 # Bundler
 Gemfile.lock
 bin/*
