@@ -11,6 +11,11 @@
       "git": "https://github.com/yuanying/chef-users_and_groups.git",
       "ref": "1906b1aeab028e4709c35ff1afc7dad62d61ed9b"
     },
+    "nginx-site": {
+      "locked_version": "0.1.0",
+      "git": "https://github.com/yuanying/chef-nginx-site.git",
+      "ref": "3cfa1e50f26ae8ae6906023a27dceb1d8766bc06"
+    },
     "dokku": {
       "locked_version": "0.2.0",
       "git": "https://github.com/fgrehm/chef-dokku.git",

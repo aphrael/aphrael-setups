@@ -1,10 +1,13 @@
 set :application,     "AphraelServer"
 
+set :solo_rb_template, File.dirname(__FILE__) + '/solo.rb.erb'
+
 run_list :router, [
   'role[bootstrap]',
   # 'recipe[nginx::source]',
   # 'recipe[docker]',
   # 'recipe[virtualbox]',
+  'recipe[nginx-site]',
   'recipe[dokku::bootstrap]',
   # 'recipe[smbfs]'
 ]
