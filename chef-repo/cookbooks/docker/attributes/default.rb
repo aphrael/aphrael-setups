@@ -11,17 +11,27 @@ default['docker']['arch'] =
 default['docker']['bind_socket'] = 'unix:///var/run/docker.sock'
 default['docker']['bind_uri'] = nil
 default['docker']['container_cmd_timeout'] = 60
+default['docker']['docker_daemon_timeout'] = 10
+default['docker']['exec_driver'] = 'native'
+
+# DEPRECATED: will be removed in chef-docker 1.0
+default['docker']['virtualization_type'] = node['docker']['exec_driver']
+
+default['docker']['group'] = 'docker'
+default['docker']['group_members'] = []
 default['docker']['http_proxy'] = nil
 default['docker']['image_cmd_timeout'] = 300
+default['docker']['ramdisk'] = false
+default['docker']['registry_cmd_timeout'] = 60
 
 default['docker']['init_type'] = value_for_platform(
-  %w{ centos debian oracle redhat } => {
+  %w(centos debian oracle redhat) => {
     'default' => 'sysv'
   },
-  %w{ fedora } => {
+  %w(fedora) => {
     'default' => 'systemd'
   },
-  %w{ ubuntu } => {
+  %w(ubuntu) => {
     'default' => 'upstart'
   },
   'default' => 'upstart'
@@ -30,7 +40,7 @@ default['docker']['init_type'] = value_for_platform(
 default['docker']['container_init_type'] = node['docker']['init_type']
 
 default['docker']['install_type'] = value_for_platform(
-  %w{ centos debian fedora redhat ubuntu } => {
+  %w(centos debian fedora redhat ubuntu) => {
     'default' => 'package'
   },
   'default' => 'binary'
@@ -43,11 +53,23 @@ default['docker']['install_dir'] =
   else '/usr/bin'
   end
 
+default['docker']['storage_driver'] = value_for_platform(
+  %w(centos fedora oracle redhat) => {
+    'default' => 'devicemapper'
+  },
+  %w(debian ubuntu) => {
+    'default' => 'aufs'
+  },
+  'default' => nil
+)
+# DEPRECATED: will be removed in chef-docker 1.0
+default['docker']['storage_type'] = node['docker']['storage_driver']
+
 default['docker']['version'] = nil
 
 # Binary attributes
 default['docker']['binary']['version'] = node['docker']['version'] || 'latest'
-default['docker']['binary']['url'] = "http://get.docker.io/builds/Linux/#{node['docker']['arch']}/docker-#{node['docker']['binary']['version']}"
+default['docker']['binary']['url'] = "http://get.docker.io/builds/#{node['kernel']['name']}/#{node['docker']['arch']}/docker-#{node['docker']['binary']['version']}"
 
 # Package attributes
 case node['platform']

@@ -9,6 +9,7 @@ run_list :router, [
   # 'recipe[virtualbox]',
   'recipe[nginx-site]',
   'recipe[dokku::bootstrap]',
+  'recipe[docker-images]',
   # 'recipe[smbfs]'
 ]
 

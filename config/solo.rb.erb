@@ -1,6 +1,5 @@
 file_cache_path '<%= remote_file_cache_path %>'
-#cookbook_path ['<%= remote_chef_repo_path %>/cookbooks', '<%= remote_chef_repo_path %>/site-cookbooks']
-cookbook_path ['<%= remote_chef_repo_path %>/cookbooks']
+cookbook_path ['<%= remote_chef_repo_path %>/cookbooks', '<%= remote_chef_repo_path %>/site-cookbooks']
 role_path '<%= remote_chef_repo_path %>/roles'
 data_bag_path '<%= remote_chef_repo_path %>/data_bags'
 <% if defined?(http_proxy) %>http_proxy '<%= http_proxy %>'<% end %>

@@ -1,26 +1,16 @@
 
-dokku:
-  git_revision: 'v0.2.2'
-  domain: <%= domain %>
-  plugins:
-    # postgresql: 'https://github.com/Kloadut/dokku-pg-plugin.git'
-    # mysql: 'https://github.com/hughfletcher/dokku-mysql-plugin.git'
-    # mongodb: 'https://github.com/jeffutter/dokku-mongodb-plugin.git'
-    shoreman: 'https://github.com/statianzo/dokku-shoreman.git'
-  ssh_keys:
-    yuanying: ssh-dss AAAAB3NzaC1kc3MAAACBAKo3qmxiJWKNykgz//FAO7BLH7gTvKiq00jNKwonU9qXfR3kgt5zKGUP8/WoxU2yzsGp7gQ+lNflyi2FBZ1g/BKa3LIGlaYi6O3YTajdTIYPKFZnA3iWJ6FBR89gXKoxfTlvfyDTv9zu5l0Jt6u/iECynnSedAZ32EoiUPvUCf4PAAAAFQD6ErGPoQFinTSGkxCuzZUrEwBrmwAAAIAgK5phUKr3iUmLf4q1e+rMF0ng+gFPVW35lZkJI2McKroYgyMOte6UDXoT4ZYFkT2HvwAwCFoyNgZi4+fxklaHiVRwvBb3cODuQPFBFvwXsSLGsqJYJI0gAUCCOTAUZsfnh1xn9725gALKQ6u8wDXPMRLRAYMUBdF3S6KvJihMBQAAAIEAo/TRdCxxkNeeghs0NPsVdP3r/fRGJszipJLikxQYS0uZIYRaz79WW9t17dDzn0K0gmsoggPHky7SieSq8F8xSH1dCI7NQWnLr4kKUG7lBvXbn2BT//TbftIgwEiWLqpuGvZ1jrJxPh+N1aSqh91+EpVc6bb1RxdZ6K1XcjEDkAA= yuanying@Borgia.local
-
 docker:
   install_type: 'binary'
   version: '0.9.0'
+  # image_cmd_timeout: 120000
 #   bind_uri: tcp://<%= all_roles[:router].keys.first.split('@').last %>:4243
   # init_type: upstart
 #   container_init_type: false
 #   options: '-api-enable-cors'
 # 
-# nginx:
-#   version: '1.4.2'
-#   dir: /opt/nginx
-#   init_style: upstart
-#   source:
-#     checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
+nginx:
+  version: '1.4.2'
+  dir: /opt/nginx
+  init_style: upstart
+  source:
+    checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
