@@ -8,6 +8,7 @@
   "chef_type": "role",
   "run_list" : [ 
              "recipe[apt]",
+             "recipe[git]",
              "recipe[zsh]",
              "recipe[users_and_groups]",
              "recipe[sudo]"

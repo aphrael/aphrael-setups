@@ -4,11 +4,11 @@ set :solo_rb_template, File.dirname(__FILE__) + '/solo.rb.erb'
 
 run_list :router, [
   'role[bootstrap]',
-  # 'recipe[nginx::source]',
-  # 'recipe[docker]',
+  'recipe[docker]',
   # 'recipe[virtualbox]',
+  'recipe[nginx::source]',
   'recipe[nginx-site]',
-  'recipe[dokku::bootstrap]',
+  # 'recipe[dokku::bootstrap]',
   'recipe[docker-images]',
   # 'recipe[smbfs]'
 ]
