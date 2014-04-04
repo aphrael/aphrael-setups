@@ -22,15 +22,6 @@ bash "docker/images/yuanying/mysql" do
   not_if "docker images | grep yuanying/mysql"
   subscribes :sync, "git[/home/yuanying/aphrael-docker-images]"
 end
-
-bash "docker/images/yuanying/mongodb:2.4.5" do
-  cwd "/home/yuanying/aphrael-docker-images/mongodb"
-  code "docker build -t yuanying/mongodb:2.4.5 ."
-  action :run
-  not_if "docker images | grep yuanying/mongodb | grep 2.4.5"
-  subscribes :sync, "git[/home/yuanying/aphrael-docker-images]"
-end
-
 mysql_data_dir = '/home/yuanying/mysql'
 directory mysql_data_dir do
   action :create
@@ -41,19 +32,7 @@ docker_container 'mysql' do
   detach true
   port '3306:3306'
   volume "#{mysql_data_dir}:/var/lib/mysql"
-  action :run
+  action :redeploy
+  subscribes :run, "bash[docker/images/yuanying/mysql]"
 end
 
-mongodb_data_dir = '/home/yuanying/mongodb/data'
-directory mongodb_data_dir do
-  recursive true
-  action :create
-end
-docker_container 'mongodb' do
-  container_name 'mongodb'
-  image 'yuanying/mongodb:2.4.5'
-  detach true
-  port '27017:27017'
-  volume "#{mongodb_data_dir}:/data"
-  action :run
-end
