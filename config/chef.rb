@@ -10,8 +10,16 @@ run_list :router, [
   'recipe[nginx-site]',
   # 'recipe[dokku::bootstrap]',
   'recipe[docker-images]',
-  # 'recipe[smbfs]'
+  'recipe[smbfs]'
 ]
+
+secret_config_file = File.join(File.dirname(__FILE__), 'chef.private.rb')
+if File.exist?(secret_config_file)
+  load(secret_config_file)
+else
+  puts "secret config file is not found: #{secret_config_file}"
+  exit 1
+end
 
 task :test do
   set :user, 'vagrant'

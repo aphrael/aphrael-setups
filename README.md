@@ -27,3 +27,14 @@ Aphrael 用サーバのセットアップスクリプト。
     vagrant@precise64:~$ exit
     $ bundle exec rake chef:bootstrap to=test
     $ bundle exec rake chef:solo to=test
+
+## 秘密設定
+
+    # config/chef.private.rb
+    set :common_password, 'common_password'
+
+## TODO
+
+-   smbfs
+-   /home/vmail
+    -   Add vmail(id:150)/mail(gid:8) user
