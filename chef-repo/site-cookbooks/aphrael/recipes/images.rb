@@ -33,7 +33,8 @@ docker_container 'mysql' do
   container_name 'mysql'
   image 'yuanying/mysql'
   detach true
-  port '3306:3306'
+  env ["MYSQL_ROOT_PASSWORD=#{node['common_password']}"]
+  port "3306:3306"
   volume "#{mysql_data_dir}:/var/lib/mysql"
   action :run
   subscribes :redeploy, "bash[docker/images/yuanying/mysql]"

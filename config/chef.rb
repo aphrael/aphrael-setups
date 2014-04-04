@@ -9,7 +9,8 @@ run_list :router, [
   'recipe[nginx::source]',
   'recipe[nginx-site]',
   # 'recipe[dokku::bootstrap]',
-  'recipe[docker-images]',
+  'recipe[aphrael::images]',
+  'recipe[aphrael::db]',
   'recipe[smbfs]'
 ]
 
