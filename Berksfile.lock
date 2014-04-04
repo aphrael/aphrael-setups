@@ -19,11 +19,6 @@
     "nginx": {
       "locked_version": "2.2.2"
     },
-    "nginx-site": {
-      "locked_version": "0.1.0",
-      "git": "https://github.com/yuanying/chef-nginx-site.git",
-      "ref": "3cfa1e50f26ae8ae6906023a27dceb1d8766bc06"
-    },
     "smbfs": {
       "locked_version": "0.2.0"
     },

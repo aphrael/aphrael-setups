@@ -36,6 +36,7 @@ directory mysql_data_dir do
   action :create
 end
 docker_container 'mysql' do
+  container_name 'mysql'
   image 'yuanying/mysql'
   detach true
   port '3306:3306'
