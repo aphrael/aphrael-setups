@@ -14,6 +14,7 @@ run_list :router, [
   'recipe[nginx-site]',
   'recipe[aphrael::images]',
   'recipe[aphrael::db]',
+  'recipe[aphrael::email-server]',
   # 'recipe[smbfs]'
 ]
 

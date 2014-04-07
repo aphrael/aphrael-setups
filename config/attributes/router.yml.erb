@@ -27,5 +27,11 @@ mysql:
   users:
     - name: postfix
       password: <%= common_password %>
-      host: '*'
+      host: '%'
       database: postfix
+
+'email-server':
+  hostname: mail.<%= domain %>
+
+postfixadmin:
+  setup_password: <%= private_options[:postfixadmin][:setup_password] %>

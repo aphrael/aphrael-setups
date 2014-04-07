@@ -4,7 +4,7 @@ def load_current_resource
   @current_resource = Chef::Resource::DockerContainer.new(new_resource)
   wait_until_ready!
   docker_containers.each do |ps|
-    unless container_id_matches?(ps['id'])
+   unless container_id_matches?(ps['id'])
       next unless container_image_matches?(ps['image'])
       next unless container_command_matches_if_exists?(ps['command'])
       next unless container_name_matches_if_exists?(ps['names'])
@@ -143,7 +143,7 @@ def container_image_matches?(image)
 end
 
 def container_name_matches_if_exists?(names)
-  return false if new_resource.container_name && new_resource.container_name != names
+  return false if new_resource.container_name && !names.split(',').include?(new_resource.container_name)
   true
 end
 
