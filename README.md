@@ -31,7 +31,12 @@ Aphrael 用サーバのセットアップスクリプト。
 ## 秘密設定
 
     # config/chef.private.rb
-    set :common_password, 'common_password'
+    set :common_password, 'SECRET_PASSWORD'
+    set :private_options, {
+      postfixadmin: {
+        setup_password: '1111111111111111111111:111111111111111111111111111111'
+      }
+    }
 
 ## TODO
 
