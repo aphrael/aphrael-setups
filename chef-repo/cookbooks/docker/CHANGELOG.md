@@ -17,6 +17,39 @@ Attribute deprecations so you can be sure you can upgrade:
 * container LWRP Fixnum port attribute: use full String notation from Docker documentation in port attribute instead
 * container LWRP public_port attribute: use port attribute instead
 
+## 0.33.1
+
+* Bugfix: [#112][]: Defines runner methods for ChefSpec matchers
+* Bugfix: [#113][]: [D-15] Fedora 19 installs Docker 0.8.1, does not have the -G or -e flag
+
+## 0.33.0
+
+This release deprecates AUFS/device-mapper handling from chef-docker, but provides backwards compatibility by still including the default recipe of the new cookbooks. Please update your dependencies, Github watching/issues, and recipes to reflect the two new community cookbooks:
+* aufs: [aufs on community site](http://community.opscode.com/cookbooks/aufs) / [chef-aufs on Github](https://github.com/bflad/chef-aufs)
+* device-mapper: [device-mapper on community site](http://community.opscode.com/cookbooks/device-mapper) / [chef-device-mapper on Github](https://github.com/bflad/chef-device-mapper)
+
+* Bugfix: [#109][]: Remove on lxc-net start from docker Upstart
+* Enhancement: [#88][]: Migrate AUFS logic to separate cookbook
+* Enhancement: [#90][]: Migrate device-mapper logic to separate cookbook
+* Enhancement: [#110][]: Add docker Upstart pre-start script and limits configuration
+* Enhancement: [#105][]: Add --label for docker run
+* Enhancement: [#106][]: Add --opt for docker run
+* Enhancement: [#107][]: Add --networking for docker run
+* Enhancement: [#108][]: Add --dns-search for docker run
+* Enhancement: [#104][]: Add TMPDIR
+* Enhancement: [#111][]: Add DOCKER_LOGFILE configuration
+* Enhancement: container_dns* attributes to set --dns and --dns-search for all containers
+
+## 0.32.2
+
+* Bugfix: [#101][]: Explicitly install lxc on Ubuntu (when lxc is exec_driver; continue to fully support LXC as a default installation path since its been since Docker 0.1)
+* Bugfix: [#103][]: Fix host argument (in docker run)
+
+## 0.32.1
+
+* Bugfix: [#98][]: Ensure Ruby 1.8 syntax is supported
+* Bugfix: Skip empty Array values in cli_args helper
+
 ## 0.32.0
 
 _If you're using CentOS/RHEL with EPEL, upcoming docker-io 0.9.0 package upgrade can be tracked at [Bugzilla 1074880](https://bugzilla.redhat.com/show_bug.cgi?id=1074880)_
@@ -385,5 +418,18 @@ Lots of community contributions this release -- thanks!
 [#89]: https://github.com/bflad/chef-docker/issues/89
 [#90]: https://github.com/bflad/chef-docker/issues/90
 [#91]: https://github.com/bflad/chef-docker/issues/91
+[#98]: https://github.com/bflad/chef-docker/issues/98
+[#101]: https://github.com/bflad/chef-docker/issues/101
+[#103]: https://github.com/bflad/chef-docker/issues/103
+[#104]: https://github.com/bflad/chef-docker/issues/104
+[#105]: https://github.com/bflad/chef-docker/issues/105
+[#106]: https://github.com/bflad/chef-docker/issues/106
+[#107]: https://github.com/bflad/chef-docker/issues/107
+[#108]: https://github.com/bflad/chef-docker/issues/108
+[#109]: https://github.com/bflad/chef-docker/issues/109
+[#110]: https://github.com/bflad/chef-docker/issues/110
+[#111]: https://github.com/bflad/chef-docker/issues/111
+[#112]: https://github.com/bflad/chef-docker/issues/112
+[#113]: https://github.com/bflad/chef-docker/issues/113
 [@jcrobak]: https://github.com/jcrobak
 [@wingrunr21]: https://github.com/wingrunr21

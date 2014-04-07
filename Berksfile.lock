@@ -7,9 +7,9 @@
       "locked_version": "2.2.2"
     },
     "docker": {
-      "locked_version": "0.32.0",
+      "locked_version": "0.33.1",
       "git": "https://github.com/bflad/chef-docker.git",
-      "ref": "e97374ddfcf8f69f6b5d963d0b4c06d3bad57b37"
+      "ref": "a2e8d340649e2364ead4646808168b706d1957f4"
     },
     "users_and_groups": {
       "locked_version": "0.0.1",
@@ -27,6 +27,15 @@
     },
     "apt": {
       "locked_version": "2.3.0"
+    },
+    "aufs": {
+      "locked_version": "0.1.1"
+    },
+    "modules": {
+      "locked_version": "0.2.0"
+    },
+    "device-mapper": {
+      "locked_version": "0.1.0"
     },
     "git": {
       "locked_version": "2.7.0"
@@ -60,9 +69,6 @@
     },
     "dpkg_autostart": {
       "locked_version": "0.1.10"
-    },
-    "modules": {
-      "locked_version": "0.2.0"
     },
     "sysctl": {
       "locked_version": "0.3.5"

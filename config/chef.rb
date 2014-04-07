@@ -1,14 +1,15 @@
 set :application,     "AphraelServer"
 
 set :solo_rb_template, File.dirname(__FILE__) + '/solo.rb.erb'
+set(:ssh_flags) {['-o', "StrictHostKeyChecking=no"]}#, '-i', ssh_private_key]}
+
 
 run_list :router, [
   'role[bootstrap]',
+  'recipe[aufs]',
   'recipe[docker]',
-  # 'recipe[virtualbox]',
   'recipe[nginx::source]',
   'recipe[nginx-site]',
-  # 'recipe[dokku::bootstrap]',
   'recipe[aphrael::images]',
   'recipe[aphrael::db]',
   'recipe[smbfs]'

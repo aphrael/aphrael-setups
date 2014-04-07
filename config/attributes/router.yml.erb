@@ -1,8 +1,9 @@
 
 docker:
   install_type: 'binary'
-  version: '0.9.0'
-  exec_driver: 'lxc'
+  version: '0.9.1'
+  # group_members: ['aphrael']
+  # exec_driver: 'lxc'
   # image_cmd_timeout: 120000
 #   bind_uri: tcp://<%= all_roles[:router].keys.first.split('@').last %>:4243
   # init_type: upstart
@@ -15,3 +16,15 @@ nginx:
   init_style: upstart
   source:
     checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
+
+mysql:
+  server_port: 3306
+  server_root_password: <%= common_password %>
+  databases:
+    - name: postfix
+      encoding: utf8
+  users:
+    - name: postfix
+      password: <%= common_password %>
+      host: '*'
+      database: postfix
