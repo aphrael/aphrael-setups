@@ -6,6 +6,7 @@ set(:ssh_flags) {['-o', "StrictHostKeyChecking=no"]}#, '-i', ssh_private_key]}
 
 run_list :router, [
   'role[bootstrap]',
+  'recipe[aphrael::utils]',
   'recipe[device-mapper]',
   # 'recipe[aufs]',
   'recipe[docker]',
@@ -13,7 +14,6 @@ run_list :router, [
   'recipe[nginx-site]',
   'recipe[aphrael::images]',
   'recipe[aphrael::db]',
-  'recipe[aphrael::utils]',
   # 'recipe[smbfs]'
 ]
 
