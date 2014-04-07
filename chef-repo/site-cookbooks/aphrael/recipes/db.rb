@@ -1,6 +1,25 @@
+include_recipe 'docker'
 include_recipe 'database::mysql'
 
-mysql_connection_info = {:host => "localhost",
+mysql_data_dir = '/var/volumes/mysql'
+
+directory mysql_data_dir do
+  recursive true
+  action :create
+end
+docker_container 'mysql' do
+  container_name 'mysql'
+  image 'yuanying/mysql'
+  # init_type nil
+  detach true
+  env ["MYSQL_ROOT_PASSWORD=#{node['common_password']}"]
+  port "3306:3306"
+  volume "#{mysql_data_dir}:/var/lib/mysql"
+  action :run
+  # subscribes :redeploy, "bash[docker/images/yuanying/mysql]"
+end
+
+mysql_connection_info = {:host => "127.0.0.1",
                          :username => 'root',
                          :port => node['mysql']['server_port'],
                          :password => node['mysql']['server_root_password']}

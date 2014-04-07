@@ -6,13 +6,15 @@ set(:ssh_flags) {['-o', "StrictHostKeyChecking=no"]}#, '-i', ssh_private_key]}
 
 run_list :router, [
   'role[bootstrap]',
-  'recipe[aufs]',
+  'recipe[device-mapper]',
+  # 'recipe[aufs]',
   'recipe[docker]',
   'recipe[nginx::source]',
   'recipe[nginx-site]',
   'recipe[aphrael::images]',
   'recipe[aphrael::db]',
-  'recipe[smbfs]'
+  'recipe[aphrael::utils]',
+  # 'recipe[smbfs]'
 ]
 
 secret_config_file = File.join(File.dirname(__FILE__), 'chef.private.rb')
