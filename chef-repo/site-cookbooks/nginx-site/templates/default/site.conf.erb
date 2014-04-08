@@ -2,7 +2,7 @@
 upstream <%= @params[:upstream][:name] %> {
   <% @params[:upstream][:addresses].each do |address| %>
     server <%= address%>;
-  <% end %>
+  <% end if @params[:upstream][:addresses] %>
   <% if @params[:upstream][:address] %>
     server <%= @params[:upstream][:address]%>;
   <% end %>
