@@ -18,32 +18,69 @@ nginx:
   source:
     checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
 
-nginx-site:
+# nginx-site:
+#   default_domain: <%= domain %>
+#   document_root_parent: '/var/volumes'
+#   virtuals:
+#     repos:
+#       server_name: repos.<%= domain %>
+#       document_root: /var/volumes/repositories
+#       auth_basic:
+#         name: "Repository"
+#         users:
+#           - <%= private_options[:auth_basic][:yuanying] %>
+#       upstream:
+#         name: repository
+#         address: 'localhost:9872'
+#         port: 9872
+#     rep2:
+#       server_name: rep2.<%= domain %>
+#       document_root: /var/volumes/rep2
+#       auth_basic:
+#         name: "Rep2"
+#         users:
+#           - <%= private_options[:auth_basic][:yuanying] %>
+#       upstream:
+#         name: rep2
+#         address: 'localhost:8081'
+#         port: 8081
+
+aphrael:
   default_domain: <%= domain %>
-  document_root_parent: '/var/volumes'
-  virtuals:
+  volumes_root:   '/var/volumes'
+  apps:
     repos:
-      server_name: repos.<%= domain %>
-      document_root: /var/volumes/repositories
+      owner: yuanying
+      group: developer
+      hostname: repos
+      domain: <%= domain %>
       auth_basic:
         name: "Repository"
         users:
           - <%= private_options[:auth_basic][:yuanying] %>
-      upstream:
-        name: repository
-        address: 'localhost:9872'
-        port: 9872
+      image:
+        name: 'yuanying/grack'
+      exec_user: '1101'
+      host_http_port: 9872
+      container_http_port: 9872
+      host_dir: /var/volumes/repositories
+      container_dir: /var/repos
     rep2:
-      server_name: rep2.<%= domain %>
-      document_root: /var/volumes/rep2
+      owner: yuanying
+      group: developer
+      hostname: rep2
+      domain: <%= domain %>
       auth_basic:
         name: "Rep2"
         users:
           - <%= private_options[:auth_basic][:yuanying] %>
-      upstream:
-        name: rep2
-        address: 'localhost:8081'
-        port: 8081
+      image:
+        name: 'yuanying/rep2'
+      exec_user: '1101'
+      host_http_port: 8081
+      container_http_port: 8080
+      host_dir: /var/volumes/rep2
+      container_dir: /p2-php/data
 
 mysql:
   server_port: 3306

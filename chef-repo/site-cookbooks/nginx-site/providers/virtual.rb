@@ -10,6 +10,7 @@ action :create do
 
   template "#{node[:nginx][:dir]}/sites-available/#{new_resource.name}" do
     source "site.conf.erb"
+    cookbook new_resource.cookbook
     variables(
       :server_name    => new_resource.server_name,
       :name           => new_resource.name,
@@ -23,6 +24,7 @@ action :create do
   if new_resource.auth_basic
     template basic_file do
       source "htpasswd.erb"
+      cookbook new_resource.cookbook
       variables(
         :params         => new_resource.auth_basic
       )
