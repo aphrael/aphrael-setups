@@ -1,10 +1,10 @@
 
-upstream <%= @params[:upstream][:name] %> {
-  <% @params[:upstream][:addresses].each do |address| %>
+upstream <%= @upstream[:name] %> {
+  <% @upstream[:addresses].each do |address| %>
     server <%= address%>;
-  <% end if @params[:upstream][:addresses] %>
-  <% if @params[:upstream][:address] %>
-    server <%= @params[:upstream][:address]%>;
+  <% end if @upstream[:addresses] %>
+  <% if @upstream[:address] %>
+    server <%= @upstream[:address]%>;
   <% end %>
 }
 
@@ -16,8 +16,8 @@ server {
   error_log   /var/log/nginx/<%= @name %>.error.log;
 
   location / {
-    <% if @params[:auth_basic] %>
-    auth_basic "<%= @params[:auth_basic][:name] %>";
+    <% if @auth_basic %>
+    auth_basic "<%= @auth_basic[:name] %>";
     auth_basic_user_file <%= @basic_file %>;
     <% end %>
     proxy_set_header  X-Real-IP       $remote_addr;
@@ -25,6 +25,6 @@ server {
     proxy_set_header  Host            $http_host;
     proxy_set_header  Upgrade         $http_upgrade;
     proxy_set_header  Connection      "Upgrade";
-    proxy_pass http://<%= @params[:upstream][:name] %>;
+    proxy_pass http://<%= @upstream[:name] %>;
   }
 }
