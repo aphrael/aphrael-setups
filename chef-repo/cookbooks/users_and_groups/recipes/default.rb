@@ -1,6 +1,8 @@
 
 node[:groups].each do |g|
-  group g[:name] if g[:primary]
+  group g[:name] do
+    gid g[:gid] if g[:gid]
+  end if g[:primary]
 end
 
 node[:users].each do |u|
@@ -8,6 +10,7 @@ node[:users].each do |u|
   home_dir = "/home/#{u[:name]}"
 
   user u[:name] do
+    uid u[:uid]
     gid u[:gid]
     shell u[:shell]
     home home_dir
@@ -49,6 +52,7 @@ end
 node[:groups].each do |g|
   unless g[:primary]
     group g[:name] do
+      gid g[:gid] if g[:gid]
       append true
       members g[:members]
     end

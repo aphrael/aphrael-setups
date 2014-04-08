@@ -3,17 +3,21 @@ common_password: <%= common_password %>
 
 groups:
   - name: developer
+    gid:  1101
     primary: true
   - name: aphrael
+    gid:  1100
     members: ['yuanying']
 
 users:
   - name: yuanying
     shell: '/bin/zsh'
+    uid: 1101
     gid: developer
     public_key: ssh-dss AAAAB3NzaC1kc3MAAACBAKo3qmxiJWKNykgz//FAO7BLH7gTvKiq00jNKwonU9qXfR3kgt5zKGUP8/WoxU2yzsGp7gQ+lNflyi2FBZ1g/BKa3LIGlaYi6O3YTajdTIYPKFZnA3iWJ6FBR89gXKoxfTlvfyDTv9zu5l0Jt6u/iECynnSedAZ32EoiUPvUCf4PAAAAFQD6ErGPoQFinTSGkxCuzZUrEwBrmwAAAIAgK5phUKr3iUmLf4q1e+rMF0ng+gFPVW35lZkJI2McKroYgyMOte6UDXoT4ZYFkT2HvwAwCFoyNgZi4+fxklaHiVRwvBb3cODuQPFBFvwXsSLGsqJYJI0gAUCCOTAUZsfnh1xn9725gALKQ6u8wDXPMRLRAYMUBdF3S6KvJihMBQAAAIEAo/TRdCxxkNeeghs0NPsVdP3r/fRGJszipJLikxQYS0uZIYRaz79WW9t17dDzn0K0gmsoggPHky7SieSq8F8xSH1dCI7NQWnLr4kKUG7lBvXbn2BT//TbftIgwEiWLqpuGvZ1jrJxPh+N1aSqh91+EpVc6bb1RxdZ6K1XcjEDkAA= yuanying@Borgia.local
   - name: mapserver2007
     shell: '/bin/bash'
+    uid: 1102
     gid: developer
     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAudOMyRnQs/YD6YLtZ2r9jYzgjRwYRYVhsJc2lRRJZuD7D4pdvbHnmpq8jWOYGE+WDY4SNMoRQcWpJaNsAJEUPpx2DEmsyfDLOP3tn5F4imM+5Ufn/KLGrMeoYCuoS6P4XTiGaoxEtVEGYlA5AB76ALKvdaBxlethoJ3hiGA+zAHfEYWkE2NNtSPH7zp9r8KMuGgPj03Dd8XJ6JbkR32KbdLfPBLX1wBR2xRuIEa3el7UySXtZFaFljeQnBDymg61cM00Hi84npYR/UCb871arDR+EbEbbzY8BFwvduUsQtX8wJ0bmqgu6vkqcrbq3aJoWC0Dx+buKnAXLWzEDFBQ1Q== stay@stay-dev.local
 
