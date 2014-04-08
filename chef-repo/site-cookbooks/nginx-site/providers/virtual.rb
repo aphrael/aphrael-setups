@@ -5,6 +5,8 @@ end
 
 action :create do
   basic_file = "#{node[:nginx][:dir]}/#{new_resource.name}.htpasswd"
+  server_name    = new_resource.server_name   || "#{new_resource.name}.#{node['nginx-site']['default_domain']}"
+  document_root  = new_resource.document_root || File.join(node['nginx-site']['document_root_parent'], new_resource.name)
 
   template "#{node[:nginx][:dir]}/sites-available/#{new_resource.name}" do
     source "site.conf.erb"

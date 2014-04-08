@@ -1,6 +1,6 @@
 
-if node[:'nginx-site']
-  node[:'nginx-site'].each do |k, v|
+if node[:'nginx-site'] && node[:'nginx-site'][:virtuals]
+  node[:'nginx-site'][:virtuals].each do |k, v|
     nginx_site_virtual k do
       server_name   v[:server_name]
       document_root v[:document_root]

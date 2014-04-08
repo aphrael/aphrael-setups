@@ -19,28 +19,31 @@ nginx:
     checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
 
 nginx-site:
-  repos:
-    server_name: repos.<%= domain %>
-    document_root: /var/volumes/repositories
-    auth_basic:
-      name: "Repository"
-      users:
-        - <%= private_options[:auth_basic][:yuanying] %>
-    upstream:
-      name: repository
-      address: 'localhost:9872'
-      port: 9872
-  rep2:
-    server_name: rep2.<%= domain %>
-    document_root: /var/volumes/rep2
-    auth_basic:
-      name: "Rep2"
-      users:
-        - <%= private_options[:auth_basic][:yuanying] %>
-    upstream:
-      name: rep2
-      address: 'localhost:8081'
-      port: 8081
+  default_domain: <%= domain %>
+  document_root_parent: '/var/volumes'
+  virtuals:
+    repos:
+      server_name: repos.<%= domain %>
+      document_root: /var/volumes/repositories
+      auth_basic:
+        name: "Repository"
+        users:
+          - <%= private_options[:auth_basic][:yuanying] %>
+      upstream:
+        name: repository
+        address: 'localhost:9872'
+        port: 9872
+    rep2:
+      server_name: rep2.<%= domain %>
+      document_root: /var/volumes/rep2
+      auth_basic:
+        name: "Rep2"
+        users:
+          - <%= private_options[:auth_basic][:yuanying] %>
+      upstream:
+        name: rep2
+        address: 'localhost:8081'
+        port: 8081
 
 mysql:
   server_port: 3306
