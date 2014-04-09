@@ -1,7 +1,7 @@
 
 docker:
   install_type: 'binary'
-  version: '0.9.1'
+  version: '0.10.0'
   storage_driver: devicemapper
   # group_members: ['aphrael']
   # exec_driver: 'lxc'
@@ -15,6 +15,8 @@ nginx:
   version: '1.4.2'
   dir: /opt/nginx
   init_style: upstart
+  openssl_source:
+    version: 1.0.1g
   source:
     checksum: 5361ffb7b0ebf8b1a04369bc3d1295eaed091680c1c58115f88d56c8e51f3611
 

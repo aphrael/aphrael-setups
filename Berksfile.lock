@@ -9,7 +9,7 @@
     "docker": {
       "locked_version": "0.33.1",
       "git": "https://github.com/bflad/chef-docker.git",
-      "ref": "a2e8d340649e2364ead4646808168b706d1957f4"
+      "ref": "7e34f706bfb3cdceeb1c43afb933950047678486"
     },
     "users_and_groups": {
       "locked_version": "0.0.1",
@@ -17,7 +17,7 @@
       "ref": "1906b1aeab028e4709c35ff1afc7dad62d61ed9b"
     },
     "nginx": {
-      "locked_version": "2.2.2"
+      "locked_version": "2.6.0"
     },
     "smbfs": {
       "locked_version": "0.2.0"

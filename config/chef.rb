@@ -3,6 +3,10 @@ set :application,     "AphraelServer"
 set :solo_rb_template, File.dirname(__FILE__) + '/solo.rb.erb'
 set(:ssh_flags) {['-o', "StrictHostKeyChecking=no"]}#, '-i', ssh_private_key]}
 
+set :remote_blob_dir, "/tmp/blobs"
+set :local_blob_dir,  "./blobs/"
+set(:rsync_flags) {['-rlptDzP', '--delete', '--exclude', '.git', '-e', "ssh #{ssh_flags.join(' ')}"]}
+
 
 run_list :router, [
   'role[bootstrap]',

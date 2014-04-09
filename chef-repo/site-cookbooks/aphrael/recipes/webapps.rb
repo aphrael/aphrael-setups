@@ -1,5 +1,5 @@
 
-node[:aphrael][:apps].each do |k, v|
+node[:aphrael][:webapps].each do |k, v|
   aphrael_web_app k do
     owner v[:owner]
     group v[:group]
@@ -13,4 +13,4 @@ node[:aphrael][:apps].each do |k, v|
     host_dir v[:host_dir]
     container_dir v[:container_dir]
   end
-end if node[:aphrael][:apps]
+end if node[:aphrael][:webapps]

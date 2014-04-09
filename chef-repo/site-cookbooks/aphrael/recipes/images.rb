@@ -11,7 +11,7 @@ end
     cwd "/home/yuanying/aphrael-docker-images/ruby/#{t}"
     code "docker build -t yuanying/ruby:#{t} ."
     action :run
-    not_if "docker images | grep yuanying/ruby | grep #{t}"
+    not_if "docker images | grep yuanying/ruby | grep '#{Regexp.escape(t)}'"
     subscribes :run, "git[/home/yuanying/aphrael-docker-images]"
   end
 end
