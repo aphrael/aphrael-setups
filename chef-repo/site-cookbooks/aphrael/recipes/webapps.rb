@@ -1,6 +1,6 @@
 
 node[:aphrael][:apps].each do |k, v|
-  aphrael_app k do
+  aphrael_web_app k do
     owner v[:owner]
     group v[:group]
     hostname v[:hostname]

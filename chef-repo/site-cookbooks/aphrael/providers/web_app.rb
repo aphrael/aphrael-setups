@@ -1,5 +1,5 @@
 def load_current_resource
-  @current_resource = Chef::Resource::NginxSiteVirtual.new(new_resource)
+  @current_resource = Chef::Resource::AphraelWebApp.new(new_resource)
   @current_resource
 end
 
